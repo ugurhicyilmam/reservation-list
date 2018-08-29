@@ -1,0 +1,11 @@
+<section class="section-heading">
+    <h1 class="heading-primary">
+        Reservation List
+    </h1>
+</section>
+<section class="section-filter">
+    <app-reservation-list-filter (filterChange)="onFilterChange($event)"></app-reservation-list-filter>
+</section>
+<section class="section-table">
+    <app-reservation-list-table [reservations]="reservations"></app-reservation-list-table>
+</section>

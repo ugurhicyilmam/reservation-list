@@ -1,0 +1,32 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">
+                <input type="checkbox">
+            </th>
+            <th scope="col">Status</th>
+            <th scope="col">Date</th>
+            <th scope="col">Shift</th>
+            <th scope="col">Guest Number</th>
+            <th scope="col">Guest Name</th>
+            <th scope="col">Area</th>
+            <th scope="col">Guest Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let reservation of reservations | order:'quantity':'desc'">
+            <th scope="row">
+                <input type="checkbox">
+            </th>
+            <td class="capitalized">
+                <app-reservation-status-bullet [status]="reservation.status"></app-reservation-status-bullet> {{ reservation.status | lowercase }}</td>
+            <td>{{ reservation.businessDate }}</td>
+            <td class="capitalized">{{ reservation.start | date:'HH:mm':'utc' }} {{ reservation.shift | lowercase }}</td>
+            <td>{{ reservation.quantity }}</td>
+            <td>{{ reservation.customer.lastName }}, {{ reservation.customer.firstName}}</td>
+            <td class="capitalized">{{ reservation.area | lowercase }}</td>
+            <td *ngIf="reservation.guestNotes">{{ reservation.guestNotes }}</td>
+            <td *ngIf="!reservation.guestNotes" class="emphasized">No notes</td>
+        </tr>
+    </tbody>
+</table>
