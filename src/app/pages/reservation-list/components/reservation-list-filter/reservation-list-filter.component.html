@@ -9,6 +9,7 @@
         <app-multi-select label="Area" [options]="areaOptions" (selectionChange)="onSelectionChange($event, 'area')" [multiple]="false"></app-multi-select>
     </div>
     <div class="filter__search-box">
-        <input type="text" class="filter__search" [(ngModel)]="guest" (ngModelChange)="guest$.next(guest)">
+        <input type="text" class="filter__search" [class.filter--loading]="searchLoading" [(ngModel)]="guest" (ngModelChange)="onSearchChange(guest)"
+            placeholder="Search reservation">
     </div>
 </div>

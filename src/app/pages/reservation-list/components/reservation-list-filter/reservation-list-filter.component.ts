@@ -14,16 +14,23 @@ import { debounceTime } from "rxjs/operators";
   templateUrl: "reservation-list-filter.component.html",
   styleUrls: ["reservation-list-filter.component.scss"]
 })
+/**
+ * The filter component for reservation list
+ */
 export class ReservationListFilterComponent implements OnInit {
   public filter: ReservationFilter = {};
 
+  /**
+   * Event emitted when user changes filter selection
+   */
   @Output()
   public filterChange: EventEmitter<ReservationFilter> = new EventEmitter();
-
   public statusOptions: string[];
   public shiftOptions: string[];
   public areaOptions: string[];
   public dateOptions: string[];
+
+  public searchLoading: boolean = false;
 
   public guest: string;
   public guest$: Subject<string> = new Subject();
@@ -37,13 +44,28 @@ export class ReservationListFilterComponent implements OnInit {
     this.guest$.pipe(debounceTime(500)).subscribe(text => {
       this.filter["guest"] = text;
       this.filterChange.emit(this.filter);
+      this.searchLoading = false;
     });
   }
 
+  /**
+   * Event handler for multi-select
+   * @param selectedOptions Selected options from multi-select
+   * @param key Name of the multi-select
+   */
   public onSelectionChange(selectedOptions: string[], key: string): void {
     this.filter[key] = selectedOptions;
     this.filter["guest"] = this.guest;
     this.filterChange.emit(this.filter);
+  }
+
+  /**
+   * Event handler for search input.
+   * Passes latest value to guest$ subject, which adds 500ms latency to prevent continuous searching.
+   */
+  public onSearchChange(guest: string): void {
+    this.guest$.next(guest);
+    this.searchLoading = true;
   }
 
   private getValuesInObject(obj: any): string[] {

@@ -18,4 +18,7 @@ import { ReservationListFilterComponent } from "./components/reservation-list-fi
   ],
   providers: []
 })
+/**
+ * Module for reservation-list page.
+ */
 export class ReservationListModule {}

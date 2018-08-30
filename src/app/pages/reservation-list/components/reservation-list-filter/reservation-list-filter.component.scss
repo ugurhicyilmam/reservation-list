@@ -35,4 +35,13 @@
     background: url(/assets/icons/search.svg) no-repeat 0.7rem 1rem;
     background-color: $color-white;
   }
+
+  &--loading {
+    background: url(/assets/icons/spinner.gif) no-repeat 0.7rem 1rem;
+    background-size: 1.3rem 1.3rem;
+  }
+
+  &__search::placeholder {
+    font-style: italic;
+  }
 }

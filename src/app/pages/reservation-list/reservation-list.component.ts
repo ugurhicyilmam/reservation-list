@@ -9,6 +9,9 @@ import { ReservationFilter } from "../../shared/services/reservation-list/reserv
   templateUrl: "reservation-list.component.html",
   styleUrls: ["reservation-list.component.scss"]
 })
+/**
+ * Main component for reservation-list page. This is a smart component, which handles data-flow for reservation-list.
+ */
 export class ReservationListComponent implements OnInit, OnDestroy {
   public reservations: Reservation[];
   public reservations$: Subscription;
@@ -25,6 +28,10 @@ export class ReservationListComponent implements OnInit, OnDestroy {
     this.reservations$.unsubscribe();
   }
 
+  /**
+   * Handler for reservation-list-filter. Makes new request from 'server' when filter updated.
+   * @param filter filter to apply reservation-list
+   */
   public onFilterChange(filter: ReservationFilter) {
     this.reservations$.unsubscribe();
     this.reservations$ = this.reservationListService.getReservations(filter).subscribe(reservations => {

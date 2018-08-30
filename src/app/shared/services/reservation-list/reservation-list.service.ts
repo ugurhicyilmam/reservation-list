@@ -9,11 +9,20 @@ import { ReservationFilter } from "./reservation-filter";
 import { ReservationDate } from "./reservation-date";
 
 @Injectable()
+/**
+ * API service for getting reservation-list
+ */
 export class ReservationListService {
   private activeFilter;
 
   constructor(private httpClient: HttpClient) {}
 
+  /**
+   * Gets reservations from 'server'
+   * Filtering is currently also done on client-side but it is done on this service to reflect real use-case.
+   * Normally filtering would be done on the server-side.
+   * @param filterArgs Filter params to be used to filter reservations
+   */
   public getReservations(filterArgs: ReservationFilter): Observable<Reservation[]> {
     this.activeFilter = filterArgs;
 

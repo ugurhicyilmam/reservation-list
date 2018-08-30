@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table reservation-table">
     <thead>
         <tr>
             <th scope="col">
@@ -7,14 +7,28 @@
             <th scope="col">Status</th>
             <th scope="col">Date</th>
             <th scope="col">Shift</th>
-            <th scope="col">Guest Number</th>
-            <th scope="col">Guest Name</th>
+            <th scope="col" (click)="sortBy('quantity')" class="clickable">
+                Guest Number
+                <span class="reservation-table__sort-icon-box">
+                    <img src="assets/icons/sort.png" class="reservation-table__sort-icon" alt="Sort" [hidden]="sortField === 'quantity'">
+                    <img src="assets/icons/sort-desc.png" class="reservation-table__sort-icon" alt="Sort" *ngIf="sortField === 'quantity' && desc">
+                    <img src="assets/icons/sort-asc.png" class="reservation-table__sort-icon" alt="Sort" *ngIf="sortField === 'quantity' && !desc">
+                </span>
+            </th>
+            <th scope="col" (click)="sortBy('customer.lastName')" class="clickable">
+                Guest Name
+                <span class="reservation-table__sort-icon-box">
+                    <img src="assets/icons/sort.png" class="reservation-table__sort-icon" alt="Sort" [hidden]="sortField === 'customer.lastName'">
+                    <img src="assets/icons/sort-desc.png" class="reservation-table__sort-icon" alt="Sort" *ngIf="sortField === 'customer.lastName' && desc">
+                    <img src="assets/icons/sort-asc.png" class="reservation-table__sort-icon" alt="Sort" *ngIf="sortField === 'customer.lastName' && !desc">
+                </span>
+            </th>
             <th scope="col">Area</th>
             <th scope="col">Guest Notes</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let reservation of reservations | order:'quantity':'desc'">
+        <tr *ngFor="let reservation of reservations | order:sortField:desc">
             <th scope="row">
                 <input type="checkbox">
             </th>
